@@ -4,7 +4,8 @@ import SearchBar from './components/searchbar';
 import YTSearch from 'youtube-api-search'
 import VideoList from './components/list';
 import VideoDetail from './components/videodetail';
-const API_KEY='AIzaSyChzfvLpzfzDKPxeIHoEOhx0Z5U0Ei4c4U'
+import _ from 'lodash'
+const API_KEY='' //PUT API KEY HERE Google Youtube API V3
 
 class App extends Component{
   
@@ -32,9 +33,11 @@ class App extends Component{
 
 
     render(){
+
+        const videoSearch=_.debounce((term)=>this.videoSearch(term),400)
         return (
             <div>
-                <SearchBar onSearch={searchTerm=>this.videoSearch(searchTerm)}/>
+                <SearchBar onSearch={videoSearch}/>
                 <VideoDetail video={this.state.selectedVideo}/>
 
                 <VideoList
